@@ -126,7 +126,7 @@ class Dashboard extends Component {
               <StatsCard
                 bigIcon={<i className="pe-7s-drop text-info" />}
                 statsText="Umidade"
-                statsValue="345"
+                statsValue="19"
                 statsIcon={<i className="fa fa-file-alt" />}
                 statsIconText="Relatório"
               />
@@ -173,7 +173,7 @@ class Dashboard extends Component {
               <Card
                 statsIcon="fa fa-history"
                 id="chartHours"
-                title="Cinturão de Temperatura"
+                title="Monitor de Temperatura"
                 category=""
                 stats=""
                 content={
@@ -191,7 +191,7 @@ class Dashboard extends Component {
             <Col md={4}>
               <Card
                 statsIcon="fa fa-clock-o"
-                title="Temperatura também"
+                title="Temperatura atual"
                 category=""
                 stats=""
                 content={
