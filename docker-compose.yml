@@ -2,6 +2,8 @@ version: '3'
 services:
   webapp:
     build: .
+    environment:
+      - NODE_PATH=./src
     ports:
       - "3000:3000"
     volumes:

@@ -109,45 +109,62 @@ class Dashboard extends Component {
 
   render() {
     const temperature = this.state.temperatures[this.state.temperatures.length - 1];
-    console.log(this.state.temperatures)
     return (
       <div className="content">
         <Grid fluid>
           <Row>
             <Col lg={3} sm={6}>
               <StatsCard
-                bigIcon={<i className="pe-7s-server text-warning" />}
-                statsText="Capacity"
-                statsValue="105GB"
-                statsIcon={<i className="fa fa-refresh" />}
-                statsIconText="Updated now"
+                bigIcon={<i className="fas fa-thermometer-three-quarters text-danger" />}
+                statsText="Temperatura"
+                statsValue={`${temperature} ºC`}
+                statsIcon={<i className="fas fa-file-alt" />}
+                statsIconText="Relatório"
               />
             </Col>
             <Col lg={3} sm={6}>
               <StatsCard
-                bigIcon={<i className="pe-7s-wallet text-success" />}
-                statsText="Revenue"
-                statsValue="$1,345"
-                statsIcon={<i className="fa fa-calendar-o" />}
-                statsIconText="Last day"
+                bigIcon={<i className="pe-7s-drop text-info" />}
+                statsText="Umidade"
+                statsValue="345"
+                statsIcon={<i className="fa fa-file-alt" />}
+                statsIconText="Relatório"
               />
             </Col>
             <Col lg={3} sm={6}>
               <StatsCard
-                bigIcon={<i className="pe-7s-graph1 text-danger" />}
-                statsText="Errors"
-                statsValue="23"
-                statsIcon={<i className="fa fa-clock-o" />}
-                statsIconText="In the last hour"
+                bigIcon={<div className="text-warning">pH</div>}
+                statsText="pH da água"
+                statsValue="4"
+                statsIcon={<i className="fa fa-file-alt" />}
+                statsIconText="Relatório"
               />
             </Col>
             <Col lg={3} sm={6}>
               <StatsCard
-                bigIcon={<i className="fa fa-twitter text-info" />}
-                statsText="Followers"
-                statsValue="+45"
-                statsIcon={<i className="fa fa-refresh" />}
-                statsIconText="Updated now"
+                bigIcon={<i className="pe-7s-repeat text-info" />}
+                statsText="Nível da água"
+                statsValue="5L"
+                statsIcon={<i className="fa fa-file-alt" />}
+                statsIconText="Relatório"
+              />
+            </Col>
+            <Col lg={3} sm={6}>
+              <StatsCard
+                bigIcon={<i className="pe-7s-light " style={{color: "#F0F012"}}/>}
+                statsText="Luminosidade"
+                statsValue="Ligada"
+                statsIcon={<i className="fa fa-file-alt" />}
+                statsIconText="Relatório"
+              />
+            </Col>
+            <Col lg={3} sm={6}>
+              <StatsCard
+                bigIcon={<i className="fa fa-tint text-danger"/>}
+                statsText="Temperatura da Água"
+                statsValue="22 ºC"
+                statsIcon={<i className="fa fa-file-alt" />}
+                statsIconText="Relatório"
               />
             </Col>
           </Row>
@@ -180,7 +197,7 @@ class Dashboard extends Component {
                 content={
                   <div style={{textAlign: "center"}}>
                     <h1 className={this.temperatureStatus(temperature)}>
-                      <strong>{temperature}</strong>
+                      <strong>{`${temperature} ºC`}</strong>
                     </h1>
                   </div>
                 }
@@ -196,46 +213,6 @@ class Dashboard extends Component {
             </Col>
           </Row>
 
-          <Row>
-            <Col md={6}>
-              <Card
-                id="chartActivity"
-                title="2014 Sales"
-                category="All products including Taxes"
-                stats="Data information certified"
-                statsIcon="fa fa-check"
-                content={
-                  <div className="ct-chart">
-                    <ChartistGraph
-                      data={dataBar}
-                      type="Bar"
-                      options={optionsBar}
-                      responsiveOptions={responsiveBar}
-                    />
-                  </div>
-                }
-                legend={
-                  <div className="legend">{this.createLegend(legendBar)}</div>
-                }
-              />
-            </Col>
-
-            <Col md={6}>
-              <Card
-                title="Tasks"
-                category="Backend development"
-                stats="Updated 3 minutes ago"
-                statsIcon="fa fa-history"
-                content={
-                  <div className="table-full-width">
-                    <table className="table">
-                      <Tasks />
-                    </table>
-                  </div>
-                }
-              />
-            </Col>
-          </Row>
         </Grid>
       </div>
     );
