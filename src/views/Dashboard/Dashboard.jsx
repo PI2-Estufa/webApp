@@ -12,8 +12,7 @@ import {
   optionsSales,
   responsiveSales,
   legendSales,
-  dataBar,
-  optionsBar,
+  dataBar, optionsBar,
   responsiveBar,
   legendBar,
   legendTemperature
@@ -21,8 +20,8 @@ import {
 
 
 let interval = null;
-const min = 5;
-const max = 25;
+const min = 24.8;
+const max = 26;
 
 class Dashboard extends Component {
   constructor(props) {
@@ -161,7 +160,7 @@ class Dashboard extends Component {
             <Col lg={3} sm={6}>
               <StatsCard
                 bigIcon={<i className="fa fa-tint text-danger"/>}
-                statsText="Temperatura da Água"
+                statsText="Temp. Água"
                 statsValue="22 ºC"
                 statsIcon={<i className="fa fa-file-alt" />}
                 statsIconText="Relatório"
@@ -173,7 +172,7 @@ class Dashboard extends Component {
               <Card
                 statsIcon="fa fa-history"
                 id="chartHours"
-                title="Monitor de Temperatura"
+                title="Variação de temperatura"
                 category=""
                 stats=""
                 content={
