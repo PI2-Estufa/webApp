@@ -30,10 +30,13 @@ class Dashboard extends Component {
       temperatures: [],
       humidities: [],
       pHs: [],
+      activeOption: "temperatures",
       activeGraph: []
     }
+
     this.fetchTemperature = this.fetchTemperature.bind(this);
-    this.temperatureData = this.temperatureData.bind(this);
+    this.graphData = this.graphData.bind(this);
+    this.changeGraph = this.changeGraph.bind(this);
   }
 
   componentDidMount() {
@@ -41,15 +44,21 @@ class Dashboard extends Component {
     interval = setInterval(this.fetchTemperature, 2000);
   }
 
-  fetchTemperature() {
-    this.setState({ activeGraph: this.state.temperatures });
-    fetch('http://localhost:8000')
+  async fetchTemperature() {
+    await fetch('http://localhost:8000')
       .then(response => response.json())
       .then(response => {
         this.setState({ temperatures: response.temperatures, 
           humidities: response.humidities,
           pHs: response.pHs })
       });
+      switch(this.state.activeOption) {
+        case "temperatures":
+          this.setState({ activeGraph: this.state.temperatures });
+          break;
+        default:
+          this.setState({ activeGraph: this.state.humidities });
+      }
   }
   componentWillUnmount() {
     clearInterval(interval);
@@ -91,7 +100,7 @@ class Dashboard extends Component {
     }
   }
 
-  temperatureData() {
+  graphData() {
     return {
       "labels":
         ["t1", "t2", "t3", "t4", "t5"],
@@ -102,7 +111,7 @@ class Dashboard extends Component {
         },
         {
           name: 'temperature',
-          data: this.state.temperatures
+          data: this.state.activeGraph
         },
         {
           name: 'min',
@@ -141,7 +150,12 @@ class Dashboard extends Component {
     };
   }
 
+  changeGraph(graph) {
+    this.setState({activeOption: graph});
+  }
+  
   render() {
+    console.log(this.state.activeGraph);
     const temperature = this.state.temperatures[this.state.temperatures.length - 1];
     const humidity = this.state.humidities[this.state.humidities.length -1];
     const ph = this.state.pHs[this.state.pHs.length -1];
@@ -151,7 +165,7 @@ class Dashboard extends Component {
           <Row>
             <Col lg={3} sm={6}>
               <StatsCard
-                bigIcon={<i className="fas fa-thermometer-three-quarters text-danger" />}
+                bigIcon={<button onClick={() => this.changeGraph('temperatures')}><i className="fas fa-thermometer-three-quarters text-danger" /></button>}
                 statsText="Temperatura"
                 statsValue={`${temperature} ºC`}
                 statsIcon={<i className="fas fa-file-alt" />}
@@ -160,7 +174,7 @@ class Dashboard extends Component {
             </Col>
             <Col lg={3} sm={6}>
               <StatsCard
-                bigIcon={<i className="pe-7s-drop text-info" />}
+                bigIcon={<button onClick={() => this.changeGraph('humidities')}><i className="pe-7s-drop text-info" /></button>}
                 statsText="Umidade"
                 statsValue={`${humidity} %`}
                 statsIcon={<i className="fa fa-file-alt" />}
@@ -215,7 +229,7 @@ class Dashboard extends Component {
                 content={
                   <div className="ct-chart">
                     <ChartistGraph
-                      data={this.temperatureData()}
+                      data={this.graphData()}
                       type="Line"
                       options={this.graphOptions()}
                       responsiveOptions={responsiveSales}
