@@ -27,7 +27,8 @@ class Dashboard extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      temperatures: []
+      temperatures: [],
+      humidities: []
     }
     this.fetchTemperature = this.fetchTemperature.bind(this);
     this.temperatureData = this.temperatureData.bind(this);
@@ -35,14 +36,14 @@ class Dashboard extends Component {
 
   componentDidMount() {
     this.fetchTemperature(this);
-    interval = setInterval(this.fetchTemperature, 5000);
+    interval = setInterval(this.fetchTemperature, 2000);
   }
 
   fetchTemperature() {
     fetch('http://localhost:8000')
       .then(response => response.json())
       .then(response => {
-        this.setState({ temperatures: response.temperatures })
+        this.setState({ temperatures: response.temperatures, humidities: response.humidities })
       });
   }
   componentWillUnmount() {
@@ -108,6 +109,7 @@ class Dashboard extends Component {
 
   render() {
     const temperature = this.state.temperatures[this.state.temperatures.length - 1];
+    const humidity = this.state.humidities[this.state.humidities.length -1];
     return (
       <div className="content">
         <Grid fluid>
@@ -125,7 +127,7 @@ class Dashboard extends Component {
               <StatsCard
                 bigIcon={<i className="pe-7s-drop text-info" />}
                 statsText="Umidade"
-                statsValue="19"
+                statsValue={`${humidity} %`}
                 statsIcon={<i className="fa fa-file-alt" />}
                 statsIconText="Relatório"
               />
