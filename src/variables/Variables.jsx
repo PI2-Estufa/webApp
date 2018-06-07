@@ -503,7 +503,7 @@ var dataSales = {
 };
 var optionsSales = {
   low: 24.0,
-  high: 26,
+  high: 30,
   showArea: false,
   height: "245px",
   axisX: {

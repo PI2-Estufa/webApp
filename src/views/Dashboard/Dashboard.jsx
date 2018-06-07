@@ -29,7 +29,8 @@ class Dashboard extends Component {
     this.state = {
       temperatures: [],
       humidities: [],
-      pHs: []
+      pHs: [],
+      activeGraph: []
     }
     this.fetchTemperature = this.fetchTemperature.bind(this);
     this.temperatureData = this.temperatureData.bind(this);
@@ -41,6 +42,7 @@ class Dashboard extends Component {
   }
 
   fetchTemperature() {
+    this.setState({ activeGraph: this.state.temperatures });
     fetch('http://localhost:8000')
       .then(response => response.json())
       .then(response => {
@@ -108,6 +110,35 @@ class Dashboard extends Component {
         }
       ]
     }
+  }
+
+  graphOptions() {
+    const min = Math.min(...this.state.activeGraph);
+    const max = Math.max(...this.state.activeGraph);
+    return {
+      low: min,
+      high: max,
+      showArea: false,
+      height: "245px",
+      axisX: {
+        showGrid: false
+      },
+      lineSmooth: true,
+      showLine: true,
+      showPoint: true,
+      fullWidth: true,
+      chartPadding: {
+        right: 50
+      },
+      series: {
+        "min": {
+          showPoint: false,
+        },
+        "max": {
+          showPoint: false,
+        }
+      }
+    };
   }
 
   render() {
@@ -186,7 +217,7 @@ class Dashboard extends Component {
                     <ChartistGraph
                       data={this.temperatureData()}
                       type="Line"
-                      options={optionsSales}
+                      options={this.graphOptions()}
                       responsiveOptions={responsiveSales}
                     />
                   </div>
