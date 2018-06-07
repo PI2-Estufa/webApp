@@ -28,7 +28,8 @@ class Dashboard extends Component {
     super(props);
     this.state = {
       temperatures: [],
-      humidities: []
+      humidities: [],
+      pHs: []
     }
     this.fetchTemperature = this.fetchTemperature.bind(this);
     this.temperatureData = this.temperatureData.bind(this);
@@ -43,7 +44,9 @@ class Dashboard extends Component {
     fetch('http://localhost:8000')
       .then(response => response.json())
       .then(response => {
-        this.setState({ temperatures: response.temperatures, humidities: response.humidities })
+        this.setState({ temperatures: response.temperatures, 
+          humidities: response.humidities,
+          pHs: response.pHs })
       });
   }
   componentWillUnmount() {
@@ -110,6 +113,7 @@ class Dashboard extends Component {
   render() {
     const temperature = this.state.temperatures[this.state.temperatures.length - 1];
     const humidity = this.state.humidities[this.state.humidities.length -1];
+    const ph = this.state.pHs[this.state.pHs.length -1];
     return (
       <div className="content">
         <Grid fluid>
@@ -136,7 +140,7 @@ class Dashboard extends Component {
               <StatsCard
                 bigIcon={<div className="text-warning">pH</div>}
                 statsText="pH da água"
-                statsValue="4"
+                statsValue={ph}
                 statsIcon={<i className="fa fa-file-alt" />}
                 statsIconText="Relatório"
               />
