@@ -30,6 +30,7 @@ class Dashboard extends Component {
       temperatures: [],
       humidities: [],
       pHs: [],
+      iluminations: [],
       activeOption: "temperatures",
       activeGraph: []
     }
@@ -50,7 +51,8 @@ class Dashboard extends Component {
       .then(response => {
         this.setState({ temperatures: response.temperatures, 
           humidities: response.humidities,
-          pHs: response.pHs })
+          pHs: response.pHs,
+          iluminations: response.iluminations })
       });
       switch(this.state.activeOption) {
         case "temperatures":
@@ -159,6 +161,7 @@ class Dashboard extends Component {
     const temperature = this.state.temperatures[this.state.temperatures.length - 1];
     const humidity = this.state.humidities[this.state.humidities.length -1];
     const ph = this.state.pHs[this.state.pHs.length -1];
+    const ilumination = this.state.iluminations[this.state.iluminations.length -1];
     return (
       <div className="content">
         <Grid fluid>
@@ -203,7 +206,7 @@ class Dashboard extends Component {
               <StatsCard
                 bigIcon={<i className="pe-7s-light " style={{color: "#F0F012"}}/>}
                 statsText="Luminosidade"
-                statsValue="Ligada"
+                statsValue={ilumination ? "Aceso" : "Apagado"}
                 statsIcon={<i className="fa fa-file-alt" />}
                 statsIconText="Relatório"
               />
