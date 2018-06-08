@@ -31,6 +31,7 @@ class Dashboard extends Component {
       humidities: [],
       pHs: [],
       iluminations: [],
+      waterLevels: [],
       activeOption: "temperatures",
       activeGraph: []
     }
@@ -52,7 +53,8 @@ class Dashboard extends Component {
         this.setState({ temperatures: response.temperatures, 
           humidities: response.humidities,
           pHs: response.pHs,
-          iluminations: response.iluminations })
+          iluminations: response.iluminations,
+          waterLevels: response.water_levels })
       });
       switch(this.state.activeOption) {
         case "temperatures":
@@ -162,6 +164,8 @@ class Dashboard extends Component {
     const humidity = this.state.humidities[this.state.humidities.length -1];
     const ph = this.state.pHs[this.state.pHs.length -1];
     const ilumination = this.state.iluminations[this.state.iluminations.length -1];
+    const waterLevel = this.state.waterLevels[this.state.waterLevels.length -1];
+
     return (
       <div className="content">
         <Grid fluid>
@@ -197,7 +201,7 @@ class Dashboard extends Component {
               <StatsCard
                 bigIcon={<i className="pe-7s-repeat text-info" />}
                 statsText="Nível da água"
-                statsValue="5L"
+                statsValue={waterLevel}
                 statsIcon={<i className="fa fa-file-alt" />}
                 statsIconText="Relatório"
               />
