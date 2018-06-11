@@ -68,6 +68,9 @@ class Dashboard extends Component {
         case "pHs":
           this.setState({ activeGraph: this.state.pHs });
           break;
+        case "waterLevels":
+          this.setState({ activeGraph: this.state.waterLevels });
+          break;
         default:
           this.setState({ activeGraph: this.state.waterTemperatures });
       }
@@ -208,7 +211,8 @@ class Dashboard extends Component {
             </Col>
             <Col lg={3} sm={6}>
               <StatsCard
-                bigIcon={<i className="pe-7s-repeat text-info" />}
+                bigIcon={<button onClick={() => this.changeGraph('waterLevels')}><i className="pe-7s-repeat text-info"/></button>}
+                
                 statsText="Nível da água"
                 statsValue={waterLevel}
                 statsIcon={<i className="fa fa-file-alt" />}
