@@ -32,6 +32,7 @@ class Dashboard extends Component {
       pHs: [],
       iluminations: [],
       waterLevels: [],
+      waterTemperatures: [],
       activeOption: "temperatures",
       activeGraph: []
     }
@@ -54,14 +55,21 @@ class Dashboard extends Component {
           humidities: response.humidities,
           pHs: response.pHs,
           iluminations: response.iluminations,
-          waterLevels: response.water_levels })
+          waterLevels: response.water_levels,
+          waterTemperatures: response.water_temperatures })
       });
       switch(this.state.activeOption) {
         case "temperatures":
           this.setState({ activeGraph: this.state.temperatures });
           break;
-        default:
+        case "humidities":
           this.setState({ activeGraph: this.state.humidities });
+          break;
+        case "pHs":
+          this.setState({ activeGraph: this.state.pHs });
+          break;
+        default:
+          this.setState({ activeGraph: this.state.waterTemperatures });
       }
   }
   componentWillUnmount() {
@@ -165,7 +173,7 @@ class Dashboard extends Component {
     const ph = this.state.pHs[this.state.pHs.length -1];
     const ilumination = this.state.iluminations[this.state.iluminations.length -1];
     const waterLevel = this.state.waterLevels[this.state.waterLevels.length -1];
-
+    const waterTemperature = this.state.waterTemperatures[this.state.waterTemperatures.length -1];
     return (
       <div className="content">
         <Grid fluid>
@@ -190,7 +198,8 @@ class Dashboard extends Component {
             </Col>
             <Col lg={3} sm={6}>
               <StatsCard
-                bigIcon={<div className="text-warning">pH</div>}
+                bigIcon={<button onClick={() => this.changeGraph('pHs')}>pH<i className="text-warning"/></button>}
+                
                 statsText="pH da água"
                 statsValue={ph}
                 statsIcon={<i className="fa fa-file-alt" />}
@@ -217,9 +226,9 @@ class Dashboard extends Component {
             </Col>
             <Col lg={3} sm={6}>
               <StatsCard
-                bigIcon={<i className="fa fa-tint text-danger"/>}
+                bigIcon={<button onClick={() => this.changeGraph('waterTemperatures')}><i className="fa fa-tint text-danger" /></button>}
                 statsText="Temp. Água"
-                statsValue="22 ºC"
+                statsValue={waterTemperature}
                 statsIcon={<i className="fa fa-file-alt" />}
                 statsIconText="Relatório"
               />
