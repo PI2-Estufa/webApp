@@ -88,6 +88,13 @@ class Dashboard extends Component {
     }
     return legend;
   }
+  createOnlyLegend(json) {
+    var legend = [];
+    for (var i = 0; i < json["names"].length; i++) {
+      legend.push(json["names"][i]);
+    }
+    return legend;
+  }
   temperatureStatus(temperature) {
     if (temperature <= min)
       return "text-info";
@@ -112,6 +119,21 @@ class Dashboard extends Component {
     return {
       names: ["Ideal"],
       types: ["success"]
+    }
+  }
+  
+  waterLegend(waterLevel) {
+    if (waterLevel == 0)
+      return {
+        names: ["Vazio"]
+      }
+    else if (waterLevel == 1)
+      return {
+        names: ["Mediano"]
+      }
+
+    return {
+      names: ["Cheio"]
     }
   }
 
@@ -214,10 +236,13 @@ class Dashboard extends Component {
                 bigIcon={<button onClick={() => this.changeGraph('waterLevels')}><i className="pe-7s-repeat text-info"/></button>}
                 
                 statsText="Nível da água"
-                statsValue={waterLevel}
+                statsValue={this.createOnlyLegend(this.waterLegend(waterLevel))}
+                
                 statsIcon={<i className="fa fa-file-alt" />}
                 statsIconText="Relatório"
               />
+                  
+                   
             </Col>
             <Col lg={3} sm={6}>
               <StatsCard
@@ -278,7 +303,7 @@ class Dashboard extends Component {
                   >
                     {this.createLegend(this.temperatureLegend(temperature))}
                   </div>
-                }
+                }                
               />
             </Col>
           </Row>
