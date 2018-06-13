@@ -234,7 +234,7 @@ class Dashboard extends Component {
       <div className="content">
         <Grid fluid>
           <Row>
-            <Col lg={3} sm={6}>
+            <Col lg={4} sm={6}>
               <StatsCard
                 bigIcon={<button onClick={() => this.changeGraph('temperatures')}><i className="fas fa-thermometer-three-quarters text-danger" /></button>}
                 statsText="Temperatura"
@@ -243,7 +243,7 @@ class Dashboard extends Component {
                 statsIconText="Relatório"
               />
             </Col>
-            <Col lg={3} sm={6}>
+            <Col lg={4} sm={6}>
               <StatsCard
                 bigIcon={<button onClick={() => this.changeGraph('humidities')}><i className="pe-7s-drop text-info" /></button>}
                 statsText="Umidade"
@@ -252,7 +252,7 @@ class Dashboard extends Component {
                 statsIconText="Relatório"
               />
             </Col>
-            <Col lg={3} sm={6}>
+            <Col lg={4} sm={6}>
               <StatsCard
                 bigIcon={<button onClick={() => this.changeGraph('pHs')}>pH<i className="text-warning"/></button>}
                 
@@ -262,7 +262,7 @@ class Dashboard extends Component {
                 statsIconText="Relatório"
               />
             </Col>
-            <Col lg={3} sm={6}>
+            <Col lg={4} sm={6}>
               <StatsCard
                 bigIcon={<button onClick={() => this.changeGraph('waterLevels')}><i className="pe-7s-repeat text-info"/></button>}
                 
@@ -273,7 +273,7 @@ class Dashboard extends Component {
                 statsIconText="Relatório"
               /> 
             </Col>
-            <Col lg={3} sm={6}>
+            <Col lg={4} sm={6}>
               <StatsCard
                 bigIcon={<i className="pe-7s-light " style={{color: "#F0F012"}}/>}
                 statsText="Luminosidade"
@@ -282,7 +282,7 @@ class Dashboard extends Component {
                 statsIconText="Relatório"
               />
             </Col>
-            <Col lg={3} sm={6}>
+            <Col lg={4} sm={6}>
               <StatsCard
                 bigIcon={<button onClick={() => this.changeGraph('waterTemperatures')}><i className="fa fa-tint text-danger" /></button>}
                 statsText="Temp. Água"
@@ -291,7 +291,7 @@ class Dashboard extends Component {
                 statsIconText="Relatório"
               />
             </Col>
-            <Col lg={3} sm={6}>
+            <Col lg={4} sm={6}>
               <StatsCard
                 bigIcon={<button onClick={() => this.changeGraph('drawerStatuses')}><i className={this.modifyIcon(drawerStatus)}  /></button>}
                 statsText="Estado da gaveta"
