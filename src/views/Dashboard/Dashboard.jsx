@@ -33,6 +33,7 @@ class Dashboard extends Component {
       iluminations: [],
       waterLevels: [],
       waterTemperatures: [],
+      drawerStatuses: [],
       activeOption: "temperatures",
       activeGraph: []
     }
@@ -56,7 +57,8 @@ class Dashboard extends Component {
           pHs: response.pHs,
           iluminations: response.iluminations,
           waterLevels: response.water_levels,
-          waterTemperatures: response.water_temperatures })
+          waterTemperatures: response.water_temperatures,
+          drawerStatuses: response.drawer_statuses })
       });
       switch(this.state.activeOption) {
         case "temperatures":
@@ -70,6 +72,9 @@ class Dashboard extends Component {
           break;
         case "waterLevels":
           this.setState({ activeGraph: this.state.waterLevels });
+          break;
+        case "drawerStatuses":
+          this.setState({ activeGraph: this.state.drawerStatuses });
           break;
         default:
           this.setState({ activeGraph: this.state.waterTemperatures });
@@ -95,6 +100,13 @@ class Dashboard extends Component {
     }
     return legend;
   }
+
+  modifyIcon(drawerStatus){
+    if(drawerStatus == 0 || drawerStatus == 3)
+      return "fa fa-toggle-off text-primary"
+    return "fa fa-toggle-on text-primary"
+  }
+  
   temperatureStatus(temperature) {
     if (temperature <= min)
       return "text-info";
@@ -134,6 +146,24 @@ class Dashboard extends Component {
 
     return {
       names: ["Cheio"]
+    } 
+    
+  }
+  drawerLegend(drawerStatus) {
+    if (drawerStatus == 0)
+      return {
+        names: ["Fechado"]
+      }
+    else if (drawerStatus == 1)
+      return {
+        names: ["Aberto"]
+      }
+    else if (drawerStatus == 2)
+      return {
+        names: ["Abrindo"]
+      }
+    return {
+      names: ["Fechando"]
     }
   }
 
@@ -199,6 +229,7 @@ class Dashboard extends Component {
     const ilumination = this.state.iluminations[this.state.iluminations.length -1];
     const waterLevel = this.state.waterLevels[this.state.waterLevels.length -1];
     const waterTemperature = this.state.waterTemperatures[this.state.waterTemperatures.length -1];
+    const drawerStatus = this.state.drawerStatuses[this.state.drawerStatuses.length -1];
     return (
       <div className="content">
         <Grid fluid>
@@ -240,9 +271,7 @@ class Dashboard extends Component {
                 
                 statsIcon={<i className="fa fa-file-alt" />}
                 statsIconText="Relatório"
-              />
-                  
-                   
+              /> 
             </Col>
             <Col lg={3} sm={6}>
               <StatsCard
@@ -261,6 +290,15 @@ class Dashboard extends Component {
                 statsIcon={<i className="fa fa-file-alt" />}
                 statsIconText="Relatório"
               />
+            </Col>
+            <Col lg={3} sm={6}>
+              <StatsCard
+                bigIcon={<button onClick={() => this.changeGraph('drawerStatuses')}><i className={this.modifyIcon(drawerStatus)}  /></button>}
+                statsText="Estado da gaveta"
+                statsValue={this.createOnlyLegend(this.drawerLegend(drawerStatus))}
+                statsIcon={<i className="fa fa-file-alt" />}
+                statsIconText="Relatório"
+              />               
             </Col>
           </Row>
           <Row>
