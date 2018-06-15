@@ -1,3 +1,4 @@
-button {
-    width: 50
+.button {
+    width: 65px;
+    height: 65px;
 }

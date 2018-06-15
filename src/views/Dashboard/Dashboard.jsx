@@ -17,6 +17,7 @@ import {
   legendBar,
   legendTemperature
 } from "variables/Variables.jsx";
+import './styles.css';
 
 
 let interval = null;
@@ -236,7 +237,7 @@ class Dashboard extends Component {
           <Row>
             <Col lg={4} sm={6}>
               <StatsCard
-                bigIcon={<button onClick={() => this.changeGraph('temperatures')}><i className="fas fa-thermometer-three-quarters text-danger" /></button>}
+                bigIcon={<button className="button" onClick={() => this.changeGraph('temperatures')}><i className="fas fa-thermometer-three-quarters text-danger" /></button>}
                 statsText="Temperatura"
                 statsValue={`${temperature} ºC`}
                 statsIcon={<i className="fas fa-file-alt" />}
@@ -245,7 +246,7 @@ class Dashboard extends Component {
             </Col>
             <Col lg={4} sm={6}>
               <StatsCard
-                bigIcon={<button onClick={() => this.changeGraph('humidities')}><i className="pe-7s-drop text-info" /></button>}
+                bigIcon={<button className="button" onClick={() => this.changeGraph('humidities')}><i className="pe-7s-drop text-info" /></button>}
                 statsText="Umidade"
                 statsValue={`${humidity} %`}
                 statsIcon={<i className="fa fa-file-alt" />}
@@ -254,7 +255,7 @@ class Dashboard extends Component {
             </Col>
             <Col lg={4} sm={6}>
               <StatsCard
-                bigIcon={<button onClick={() => this.changeGraph('pHs')}>pH<i className="text-warning"/></button>}
+                bigIcon={<button className="button" onClick={() => this.changeGraph('pHs')}>pH<i className="text-warning"/></button>}
                 
                 statsText="pH da água"
                 statsValue={ph}
@@ -264,7 +265,7 @@ class Dashboard extends Component {
             </Col>
             <Col lg={4} sm={6}>
               <StatsCard
-                bigIcon={<button onClick={() => this.changeGraph('waterLevels')}><i className="pe-7s-repeat text-info"/></button>}
+                bigIcon={<button className="button" onClick={() => this.changeGraph('waterLevels')}><i className="pe-7s-repeat text-info"/></button>}
                 
                 statsText="Nível da água"
                 statsValue={this.createOnlyLegend(this.waterLegend(waterLevel))}
@@ -275,7 +276,7 @@ class Dashboard extends Component {
             </Col>
             <Col lg={4} sm={6}>
               <StatsCard
-                bigIcon={<i className="pe-7s-light " style={{color: "#F0F012"}}/>}
+                bigIcon={<button className="button"><i className="pe-7s-light " style={{color: "#F0F012"}}/></button>}
                 statsText="Luminosidade"
                 statsValue={ilumination ? "Aceso" : "Apagado"}
                 statsIcon={<i className="fa fa-file-alt" />}
@@ -284,7 +285,7 @@ class Dashboard extends Component {
             </Col>
             <Col lg={4} sm={6}>
               <StatsCard
-                bigIcon={<button onClick={() => this.changeGraph('waterTemperatures')}><i className="fa fa-tint text-danger" /></button>}
+                bigIcon={<button className="button" onClick={() => this.changeGraph('waterTemperatures')}><i className="fa fa-tint text-danger" /></button>}
                 statsText="Temp. Água"
                 statsValue={waterTemperature}
                 statsIcon={<i className="fa fa-file-alt" />}
@@ -293,7 +294,7 @@ class Dashboard extends Component {
             </Col>
             <Col lg={4} sm={6}>
               <StatsCard
-                bigIcon={<button onClick={() => this.changeGraph('drawerStatuses')}><i className={this.modifyIcon(drawerStatus)}  /></button>}
+                bigIcon={<button className="button" onClick={() => this.changeGraph('drawerStatuses')}><i className={this.modifyIcon(drawerStatus)}  /></button>}
                 statsText="Estado da gaveta"
                 statsValue={this.createOnlyLegend(this.drawerLegend(drawerStatus))}
                 statsIcon={<i className="fa fa-file-alt" />}
