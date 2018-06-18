@@ -35,6 +35,7 @@ class Dashboard extends Component {
       waterLevels: [],
       waterTemperatures: [],
       drawerStatuses: [],
+      images: [],
       activeOption: "temperatures",
       activeGraph: []
     }
@@ -59,7 +60,8 @@ class Dashboard extends Component {
           iluminations: response.iluminations,
           waterLevels: response.water_levels,
           waterTemperatures: response.water_temperatures,
-          drawerStatuses: response.drawer_statuses })
+          drawerStatuses: response.drawer_statuses,
+          images: response.images })
       });
       switch(this.state.activeOption) {
         case "temperatures":
@@ -231,6 +233,7 @@ class Dashboard extends Component {
     const waterLevel = this.state.waterLevels[this.state.waterLevels.length -1];
     const waterTemperature = this.state.waterTemperatures[this.state.waterTemperatures.length -1];
     const drawerStatus = this.state.drawerStatuses[this.state.drawerStatuses.length -1];
+    const image = this.state.images[this.state.images.length -1];
     return (
       <div className="content">
         <Grid fluid>
@@ -348,6 +351,11 @@ class Dashboard extends Component {
           </Row>
 
         </Grid>
+        <img 
+          src={
+            "http://localhost:8000/pictures/" + image
+          } 
+        />
       </div>
     );
   }
