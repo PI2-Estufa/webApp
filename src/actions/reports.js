@@ -9,8 +9,13 @@ export function addReport(report, average=0) {
     }
 }
 export function fetchReport(report='temperatures') {
-    return (dispatch) => {
-        axios.get(`/report/${report}`)
+    return (dispatch, getState) => {
+        const { token } = getState().application;
+        axios.get(`/report/${report}`, {
+            headers: {
+                authorization: `JWT ${token}`
+            }
+        })
         .then(response => {
             if (response.data.error)
                 throw "Hurra";
@@ -18,7 +23,6 @@ export function fetchReport(report='temperatures') {
             dispatch(addReport(response.data.results, response.data.average));           
         })
         .catch(() => {
-            console.log('CATCH');
             dispatch(addReport([]));
         })
     };

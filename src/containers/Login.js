@@ -7,7 +7,6 @@ import { authenticate } from '../actions/application';
 
 class LoginContainer extends React.Component {
     handleSubmit(event) {
-        alert('hey');
         event.preventDefault();
         const username = event.target[0].value;
         const password = event.target[1].value;

@@ -1,5 +1,7 @@
 import React, { Component } from "react";
+import { connect } from 'react-redux';
 import Dashboard from "views/Dashboard/Dashboard.jsx";
+import axios from "axios";
 
 let interval = null;
 const min = 24.8;
@@ -29,18 +31,21 @@ class DashboardContainer extends Component {
   }
 
   async fetchTemperature() {
-    await fetch('http://localhost:8000')
-      .then(response => response.json())
+    await axios.get('', {
+      headers: {
+        authorization: `JWT ${this.props.token}`
+      }
+    })
       .then(response => {
         this.setState({
-          temperatures: response.temperatures,
-          humidities: response.humidities,
-          pHs: response.pHs,
-          iluminations: response.iluminations,
-          waterLevels: response.water_levels,
-          waterTemperatures: response.water_temperatures,
-          drawerStatuses: response.drawer_statuses,
-          images: response.images
+          temperatures: response.data.temperatures,
+          humidities: response.data.humidities,
+          pHs: response.data.pHs,
+          iluminations: response.data.iluminations,
+          waterLevels: response.data.water_levels,
+          waterTemperatures: response.data.water_temperatures,
+          drawerStatuses: response.data.drawer_statuses,
+          images: response.data.images
         })
       });
     switch (this.state.activeOption) {
@@ -140,4 +145,10 @@ class DashboardContainer extends Component {
   }
 }
 
-export default DashboardContainer;
+const mapStateToProps = (state) => {
+  return {
+    token: state.application.token
+  }
+}
+
+export default connect(mapStateToProps)(DashboardContainer);

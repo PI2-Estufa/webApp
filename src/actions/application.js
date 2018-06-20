@@ -1,13 +1,21 @@
 import axios from '../core/axios';
 
+
+export function saveCredentials(token) {
+    return {
+        type: 'AUTHENTICATE',
+        token
+    };
+}
+
 export function authenticate(username, password) {
-    return () => {
-        axios.post('/login', {
+    return (dispatch) => {
+        axios.post('/auth', {
             username,
             password
         })
         .then(response => {
-            console.log(response.data);
+            dispatch(saveCredentials(response.data.access_token));
         });
     }
 }

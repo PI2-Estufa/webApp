@@ -1,11 +1,12 @@
 const initialState = {
-    authenticated: false
+    authenticated: false,
+    token: ''
 };
 
 export function applicationReducer(state=initialState, action) {
     switch (action.type) {
         case 'AUTHENTICATE':
-            return {...state, authenticated: true };
+            return {token: action.token, authenticated: true };
         default:
             return state;
     }
