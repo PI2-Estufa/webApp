@@ -1,6 +1,6 @@
 import Dashboard from "containers/Dashboard";
 import UserProfile from "views/UserProfile/UserProfile";
-import TableList from "views/TableList/TableList";
+import Reports from "containers/Reports";
 import Typography from "views/Typography/Typography";
 import Icons from "views/Icons/Icons";
 import Maps from "views/Maps/Maps";
@@ -21,10 +21,10 @@ const dashboardRoutes = [
     component: UserProfile
   },
   {
-    path: "/table",
+    path: "/relatorio/:report",
     name: "Relatórios",
     icon: "pe-7s-note2",
-    component: TableList
+    component: Reports
   },
   {
     path: "/notifications",

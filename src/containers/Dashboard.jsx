@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import Dashboard from "views/Dashboard/Dashboard.jsx";
-import { responsiveSales } from "variables/Variables.jsx";
 
 let interval = null;
 const min = 24.8;
@@ -67,17 +66,6 @@ class DashboardContainer extends Component {
   componentWillUnmount() {
     clearInterval(interval);
   }
-
-  createLegend(json) {
-    var legend = [];
-    for (var i = 0; i < json["names"].length; i++) {
-      var type = "fa fa-circle text-" + json["types"][i];
-      legend.push(<i className={type} key={i} />);
-      legend.push(" ");
-      legend.push(json["names"][i]);
-    }
-    return legend;
-  }
   createOnlyLegend(json) {
     var legend = [];
     for (var i = 0; i < json["names"].length; i++) {
@@ -91,34 +79,6 @@ class DashboardContainer extends Component {
       return "fa fa-toggle-off text-primary"
     return "fa fa-toggle-on text-primary"
   }
-
-  temperatureStatus(temperature) {
-    if (temperature <= min)
-      return "text-info";
-    else if (temperature >= max)
-      return "text-danger";
-
-    return "text-success";
-
-  }
-  temperatureLegend(temperature) {
-    if (temperature <= min)
-      return {
-        names: ["Baixa"],
-        types: ["info"]
-      }
-    else if (temperature >= max)
-      return {
-        names: ["Elevada"],
-        types: ["danger"]
-      }
-
-    return {
-      names: ["Ideal"],
-      types: ["success"]
-    }
-  }
-
   waterLegend(waterLevel) {
     if (waterLevel == 0)
       return {
@@ -151,57 +111,6 @@ class DashboardContainer extends Component {
       names: ["Fechando"]
     }
   }
-
-  graphData() {
-    return {
-      "labels":
-        ["t1", "t2", "t3", "t4", "t5"],
-      "series": [
-        {
-          name: 'max',
-          data: [max, max, max, max, max]
-        },
-        {
-          name: 'temperature',
-          data: this.state.activeGraph
-        },
-        {
-          name: 'min',
-          data: [min, min, min, min, min]
-        }
-      ]
-    }
-  }
-
-  graphOptions() {
-    const min = Math.min(...this.state.activeGraph);
-    const max = Math.max(...this.state.activeGraph);
-    return {
-      low: min,
-      high: max,
-      showArea: false,
-      height: "245px",
-      axisX: {
-        showGrid: false
-      },
-      lineSmooth: true,
-      showLine: true,
-      showPoint: true,
-      fullWidth: true,
-      chartPadding: {
-        right: 50
-      },
-      series: {
-        "min": {
-          showPoint: false,
-        },
-        "max": {
-          showPoint: false,
-        }
-      }
-    };
-  }
-
   changeGraph(graph) {
     this.setState({ activeOption: graph });
   }
@@ -216,22 +125,15 @@ class DashboardContainer extends Component {
       waterTemperature: this.state.waterTemperatures[0],
       drawerStatus: this.state.drawerStatuses[0],
     };
-    const image = this.state.images[0];
     return (
       <Dashboard
         {...this.props}
         sensors={sensors}
-        image={image}
-        responsiveSales={responsiveSales}
-        createLegend={this.createLegend.bind(this)}
+        images={this.state.images}
         createOnlyLegend={this.createOnlyLegend.bind(this)}
         modifyIcon={this.modifyIcon.bind(this)}
-        temperatureStatus={this.temperatureStatus.bind(this)}
-        temperatureLegend={this.temperatureLegend.bind(this)}
         waterLegend={this.waterLegend.bind(this)}
         drawerLegend={this.drawerLegend.bind(this)}
-        graphData={this.graphData.bind(this)}
-        graphOptions={this.graphOptions.bind(this)}
         changeGraph={this.changeGraph.bind(this)}
       />
     );
