@@ -27,7 +27,7 @@ class HeaderLinks extends Component {
           <NavItem eventKey={1} href="#">
             Account
           </NavItem>
-          <NavItem eventKey={3} href="#">
+          <NavItem eventKey={3} href="/logout">
             Log out
           </NavItem>
         </Nav>
