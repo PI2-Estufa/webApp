@@ -7,6 +7,9 @@ import { fetchReport } from "../actions/reports";
 class ReportContainer extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+            activeFilter: 'day'
+        }
         this.fetchTemperatures = this.fetchTemperatures.bind(this);
     }
     componentDidMount() {
@@ -19,9 +22,13 @@ class ReportContainer extends Component {
             this.fetchTemperatures();
 
     }
-    fetchTemperatures() {
+    fetchTemperatures(queryString='') {
         const path = this.props.match.params.report;
-        this.props.dispatch(fetchReport(path));
+        this.props.dispatch(fetchReport(path, queryString));
+        if (queryString !== '') {
+            this.setState({ activeFilter: queryString.split('=')[1]})
+        }
+
     }
     render() {
         const path = this.props.match.params.report;
@@ -36,6 +43,8 @@ class ReportContainer extends Component {
             <TableList
                 {...this.props}
                 title={title}
+                activeFilter={this.state.activeFilter}
+                fetchTemperatures={this.fetchTemperatures}
             />
         );
     }

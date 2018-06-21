@@ -1,7 +1,7 @@
 const initialState = {
-    authenticated: false,
+    authenticated: true,
     loginError: false,
-    token: ''
+    token: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1Mjk2MjI4MDUsImlhdCI6MTUyOTYxOTIwNSwibmJmIjoxNTI5NjE5MjA1LCJpZGVudGl0eSI6MTAwMH0.Cb6XtfyRh5sxrA-29H27m3iKjE0C4oUYXfskJOzUTb8'
 };
 
 export function applicationReducer(state=initialState, action) {

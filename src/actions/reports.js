@@ -8,10 +8,10 @@ export function addReport(report, average=0) {
         average
     }
 }
-export function fetchReport(report='temperatures') {
+export function fetchReport(report='temperatures', queryString='') {
     return (dispatch, getState) => {
         const { token } = getState().application;
-        axios.get(`/report/${report}`, {
+        axios.get(`/report/${report}?${queryString}`, {
             headers: {
                 authorization: `JWT ${token}`
             }
