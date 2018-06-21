@@ -6,6 +6,10 @@ import { authenticate } from '../actions/application';
 
 
 class LoginContainer extends React.Component {
+    componentDidMount() {
+        const div = document.getElementById('root')
+        // div.classList.add('login');
+    }
     handleSubmit(event) {
         event.preventDefault();
         const username = event.target[0].value;
@@ -27,7 +31,8 @@ class LoginContainer extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        authenticated: state.application.authenticated
+        authenticated: state.application.authenticated,
+        loginError: state.application.loginError
     }
 }
 

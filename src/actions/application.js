@@ -8,6 +8,12 @@ export function saveCredentials(token) {
     };
 }
 
+export function loginError() {
+    return {
+        type: 'LOGIN_ERROR'
+    }
+}
+
 export function authenticate(username, password) {
     return (dispatch) => {
         axios.post('/auth', {
@@ -16,6 +22,9 @@ export function authenticate(username, password) {
         })
         .then(response => {
             dispatch(saveCredentials(response.data.access_token));
+        })
+        .catch(() => {
+            dispatch(loginError());
         });
     }
 }
