@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 
 import { StatsCard } from "components/StatsCard/StatsCard.jsx";
 import './styles.css';
+import { baseUrl } from "../../core/axios";
 
 const settings = {
   dots: true,
@@ -81,7 +82,7 @@ export default (props) => {
               />
             </Col>
           </Col>
-          <Col sm={12} md={6}>
+          <Col sm={12} md={6} style={{ overflow: 'hidden' }}>
             <Slider {...settings}>
               {
                 props.images.map((image, index) => {
@@ -89,9 +90,7 @@ export default (props) => {
                     <div key={index}>
                       <img
                         style={{ width: '100%', height: '100%' }}
-                        src={
-                          "http://localhost:8000/pictures/" + image
-                        }
+                        src={`${baseUrl}/pictures/${image}`}
                       />
                     </div>
                   );
