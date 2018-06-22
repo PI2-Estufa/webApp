@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { connect } from 'react-redux';
 import { NavItem, Nav, NavDropdown, MenuItem } from "react-bootstrap";
 
 class HeaderLinks extends Component {
@@ -7,8 +8,8 @@ class HeaderLinks extends Component {
       <div>
         <i className="fa fa-globe" />
         <b className="caret" />
-        <span className="notification">5</span>
-        <p className="hidden-lg hidden-md">Notification</p>
+        <span className="notification">{this.props.warnings.length}</span>
+        <p className="hidden-lg hidden-md">Notificações</p>
       </div>
     );
     return (
@@ -20,7 +21,12 @@ class HeaderLinks extends Component {
             noCaret
             id="basic-nav-dropdown"
           >
-            <MenuItem eventKey={2.1}>Notification 1</MenuItem>
+          { this.props.warnings.map((warning, index) => {
+            return (
+              <MenuItem key={index} eventKey={2.1}>{warning.message}</MenuItem>
+            );
+          })
+          }
           </NavDropdown>
         </Nav>
         <Nav pullRight>
@@ -36,4 +42,9 @@ class HeaderLinks extends Component {
   }
 }
 
-export default HeaderLinks;
+const mapStateToProps = (state) => {
+  return {
+    warnings: state.dashboard.warnings
+  }
+};
+export default connect(mapStateToProps)(HeaderLinks);

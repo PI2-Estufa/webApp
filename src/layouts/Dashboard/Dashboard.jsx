@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { connect } from 'react-redux';
 import { Route, Switch, Redirect } from "react-router-dom";
 import NotificationSystem from "react-notification-system";
 
@@ -15,6 +16,7 @@ class Dashboard extends Component {
     super(props);
     this.componentDidMount = this.componentDidMount.bind(this);
     this.handleNotificationClick = this.handleNotificationClick.bind(this);
+    this.addNotification = this.addNotification.bind(this);
     this.state = {
       _notificationSystem: null
     };
@@ -53,37 +55,6 @@ class Dashboard extends Component {
   }
   componentDidMount() {
     this.setState({ _notificationSystem: this.refs.notificationSystem });
-    var _notificationSystem = this.refs.notificationSystem;
-    var color = Math.floor(Math.random() * 4 + 1);
-    var level;
-    switch (color) {
-      case 1:
-        level = "success";
-        break;
-      case 2:
-        level = "warning";
-        break;
-      case 3:
-        level = "error";
-        break;
-      case 4:
-        level = "info";
-        break;
-      default:
-        break;
-    }
-    _notificationSystem.addNotification({
-      title: <span data-notify="icon" className="pe-7s-gift" />,
-      message: (
-        <div>
-          Welcome to <b>Light Bootstrap Dashboard</b> - a beautiful freebie for
-          every web developer.
-        </div>
-      ),
-      level: level,
-      position: "tr",
-      autoDismiss: 15
-    });
   }
   componentDidUpdate(e) {
     if (
@@ -98,6 +69,27 @@ class Dashboard extends Component {
       document.scrollingElement.scrollTop = 0;
       this.refs.mainPanel.scrollTop = 0;
     }
+    if (e.warnings.length !== this.props.warnings.length) {
+      this.props.warnings.forEach(warning => this.addNotification(warning));
+      
+    }
+  }
+  addNotification(warning) {
+    var _notificationSystem = this.state._notificationSystem;
+
+    if (!_notificationSystem) return;
+
+    _notificationSystem.addNotification({
+      title: <span data-notify="icon" className="pe-7s-attention" />,
+      message: (
+        <div>
+          {warning.message}
+        </div>
+      ),
+      level: warning.level,
+      position: "tr",
+      autoDismiss: 15
+    });
   }
   render() {
     return (
@@ -135,4 +127,9 @@ class Dashboard extends Component {
   }
 }
 
-export default Dashboard;
+const mapStateToProps = (state) => {
+  return {
+    warnings: state.dashboard.warnings
+  }
+}
+export default connect(mapStateToProps)(Dashboard);

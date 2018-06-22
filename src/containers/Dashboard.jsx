@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from 'react-redux';
 import Dashboard from "views/Dashboard/Dashboard.jsx";
 import axios from "axios";
+import { addWarnings } from "../actions/dashboard";
 
 let interval = null;
 const min = 24.8;
@@ -37,6 +38,7 @@ class DashboardContainer extends Component {
       }
     })
       .then(response => {
+        this.props.dispatch(addWarnings(response.data.warnings))
         this.setState({
           temperatures: response.data.temperatures,
           humidities: response.data.humidities,
