@@ -6,3 +6,6 @@
     width: 800px;
     height: 800px;
 }
+.rotateimage {
+    transform: rotate(180deg)
+}

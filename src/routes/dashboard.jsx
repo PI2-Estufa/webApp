@@ -14,24 +14,24 @@ const dashboardRoutes = [
     icon: "pe-7s-graph",
     component: Dashboard
   },
-  {
-    path: "/user",
-    name: "Usuário",
-    icon: "pe-7s-user",
-    component: UserProfile
-  },
+  // {
+  //   path: "/user",
+  //   name: "Usuário",
+  //   icon: "pe-7s-user",
+  //   component: UserProfile
+  // },
   {
     path: "/relatorio/:report",
     name: "Relatórios",
     icon: "pe-7s-note2",
     component: Reports
   },
-  {
-    path: "/notifications",
-    name: "Notificações",
-    icon: "pe-7s-bell",
-    component: Notifications
-  },
+  // {
+  //   path: "/notifications",
+  //   name: "Notificações",
+  //   icon: "pe-7s-bell",
+  //   component: Notifications
+  // },
   { redirect: true, path: "/", to: "/dashboard", name: "Dashboard" }
 ];
 

@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import { StatsCard } from "components/StatsCard/StatsCard.jsx";
 import './styles.css';
 import { baseUrl } from "../../core/axios";
+import { controlDrawer } from "../../actions/drawer";
 
 const settings = {
   dots: true,
@@ -58,13 +59,13 @@ export default (props) => {
                 statsIconText={<Link to="/relatorio/water_temperatures">Relatório</Link>}
               />
             </Col>
-            <Col lg={6} sm={6}>
+            {/* <Col lg={6} sm={6}>
               <StatsCard
                 bigIcon={<i className="pe-7s-repeat text-info" />}
                 statsText="Nível da água"
                 statsValue={props.createOnlyLegend(props.waterLegend(props.sensors.waterLevel))}
               />
-            </Col>
+            </Col> */}
             <Col lg={6} sm={6}>
               <StatsCard
                 bigIcon={<i className="pe-7s-light " style={{ color: "#F0F012" }} />}
@@ -75,10 +76,17 @@ export default (props) => {
             <Col lg={6} sm={6}>
               <StatsCard
                 bigIcon={<i className={props.modifyIcon(props.sensors.drawerStatus)} />}
-                statsText="Estado da gaveta"
-                statsValue={props.createOnlyLegend(props.drawerLegend(props.drawerStatus))}
+                statsText="Gaveta"
+                statsValue="Abrir/Fechar"
                 statsIcon={<i className="fa fa-file-alt" />}
-                statsIconText="Abrir"
+                statsIconText={
+                  <button
+                    style={{ background: 'none', border: 'none', color: '#1DC7EA'}}
+                    onClick={() => props.dispatch(controlDrawer())}
+                  >
+                    Abrir
+                  </button>
+                }
               />
             </Col>
           </Col>
@@ -90,6 +98,7 @@ export default (props) => {
                     <div key={index}>
                       <img
                         style={{ width: '100%', height: '100%' }}
+                        className="rotateimage"
                         src={`${baseUrl}/pictures/${image}`}
                       />
                     </div>
