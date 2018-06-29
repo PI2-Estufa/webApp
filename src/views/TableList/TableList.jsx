@@ -1,5 +1,7 @@
 import React from "react";
+import Chart from 'chart.js';
 import { Grid, Row, Col, Table } from "react-bootstrap";
+import { Line } from 'react-chartjs-2';
 
 import Card from "components/Card/Card.jsx";
 import CustomButton from "../../components/CustomButton/CustomButton";
@@ -16,9 +18,13 @@ export default (props) => {
               ctTableFullWidth
               ctTableResponsive
               content={
-                <div>
+                <div style={{ paddingLeft: 15 }}>
+                  <Line
+                    data={props.chartData}
+                    options={props.chartOptions}
+                  />
                   <CustomButton
-                    style={{ marginRight: 15}}
+                    style={{ marginRight: 15 }}
                     fill
                     bsStyle={props.activeFilter === 'day' ? 'primary' : 'info'}
                     onClick={() => props.fetchTemperatures('period=day')}
@@ -26,7 +32,7 @@ export default (props) => {
                     Dia
                   </CustomButton>
                   <CustomButton
-                    style={{ marginRight: 15}}
+                    style={{ marginRight: 15 }}
                     fill
                     bsStyle={props.activeFilter === 'month' ? 'primary' : 'info'}
                     onClick={() => props.fetchTemperatures('period=month')}
@@ -34,7 +40,7 @@ export default (props) => {
                     Mês
                   </CustomButton>
                   <CustomButton
-                    style={{ marginRight: 15}}
+                    style={{ marginRight: 15 }}
                     fill
                     bsStyle={props.activeFilter === 'year' ? 'primary' : 'info'}
                     onClick={() => props.fetchTemperatures('period=year')}

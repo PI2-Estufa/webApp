@@ -47,7 +47,7 @@ class DashboardContainer extends Component {
           waterLevels: response.data.water_levels,
           waterTemperatures: response.data.water_temperatures,
           drawerStatuses: response.data.drawer_statuses,
-          images: response.data.images
+          image: response.data.image
         })
       });
     switch (this.state.activeOption) {
@@ -136,7 +136,7 @@ class DashboardContainer extends Component {
       <Dashboard
         {...this.props}
         sensors={sensors}
-        images={this.state.images}
+        image={this.state.image}
         createOnlyLegend={this.createOnlyLegend.bind(this)}
         modifyIcon={this.modifyIcon.bind(this)}
         waterLegend={this.waterLegend.bind(this)}

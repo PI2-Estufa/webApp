@@ -77,7 +77,7 @@ export default (props) => {
               <StatsCard
                 bigIcon={<i className={props.modifyIcon(props.sensors.drawerStatus)} />}
                 statsText="Gaveta"
-                statsValue="Abrir/Fechar"
+                statsValue="Abrir"
                 statsIcon={<i className="fa fa-file-alt" />}
                 statsIconText={
                   <button
@@ -91,21 +91,13 @@ export default (props) => {
             </Col>
           </Col>
           <Col sm={12} md={6} style={{ overflow: 'hidden' }}>
-            <Slider {...settings}>
-              {
-                props.images.map((image, index) => {
-                  return (
-                    <div key={index}>
-                      <img
-                        style={{ width: '100%', height: '100%' }}
-                        className="rotateimage"
-                        src={`${baseUrl}/pictures/${image}`}
-                      />
-                    </div>
-                  );
-                })
-              }
-            </Slider>
+            <div>
+              <img
+                style={{ width: '100%', height: '100%' }}
+                className="rotateimage"
+                src={`${baseUrl}/pictures/${props.image}`}
+              />
+            </div>
           </Col>
         </Row>
       </Grid>

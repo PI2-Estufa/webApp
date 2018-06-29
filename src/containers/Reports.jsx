@@ -22,11 +22,11 @@ class ReportContainer extends Component {
             this.fetchTemperatures();
 
     }
-    fetchTemperatures(queryString='') {
+    fetchTemperatures(queryString = '') {
         const path = this.props.match.params.report;
         this.props.dispatch(fetchReport(path, queryString));
         if (queryString !== '') {
-            this.setState({ activeFilter: queryString.split('=')[1]})
+            this.setState({ activeFilter: queryString.split('=')[1] })
         }
 
     }
@@ -39,12 +39,33 @@ class ReportContainer extends Component {
             humidities: 'Humidade',
         };
         const title = titles[path];
+        const chartData = {
+            labels: this.props.report.map((r) => r.date),
+            datasets: [{
+                data: this.props.report.map((r) => r.value),
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                ],
+            }]
+        };
+        const chartOptions = {
+            legend: {
+                display: false
+            },
+            scales: {
+                xAxes: [{
+                    display: false
+                }]
+            }
+        };
         return (
             <TableList
                 {...this.props}
                 title={title}
                 activeFilter={this.state.activeFilter}
                 fetchTemperatures={this.fetchTemperatures}
+                chartData={chartData}
+                chartOptions={chartOptions}
             />
         );
     }
